@@ -20,7 +20,23 @@
 				];
 				nativeBuildInputs = [
 					pkgs.pkg-config
+					pkgs.alsa-lib
+					pkgs.libudev-zero
+					pkgs.xorg.libX11
+					pkgs.xorg.libXcursor
+					pkgs.xorg.libXrandr
+					pkgs.xorg.libXi
+					pkgs.vulkan-loader
 				];
+				shellHook = ''
+					export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${
+						pkgs.lib.makeLibraryPath [
+							pkgs.udev
+							pkgs.alsaLib
+							pkgs.vulkan-loader
+						]
+					}"
+				'';
 			};
 		}
 	);
